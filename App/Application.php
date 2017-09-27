@@ -67,7 +67,7 @@ class Application
                 return $preferences;
 
             case self::STATE_PREFERENCES and self::STATE_OBJECTS :
-                $this->sendToAnalyzer($request);
+                return $this->sendToAnalyzer($request);
                 break;
         }
         return null;
@@ -90,6 +90,6 @@ class Application
     private function sendToAnalyzer($data)
     {
         $analyzer = new Analyzer($data);
-        $analyzer->analyze();
+        return $analyzer->analyze();
     }
 }
