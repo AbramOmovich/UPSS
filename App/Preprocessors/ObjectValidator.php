@@ -6,7 +6,7 @@ class ObjectValidator extends Validator
 {
     protected const INVALID_DATA = 'Objects are invalid';
 
-    public function validate()
+    public function validate() : array
     {
         $paramKeys = array_keys($this->inputData[0]);
         foreach ($this->inputData as $object){

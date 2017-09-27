@@ -6,11 +6,11 @@
 
 $params = [
     'objects' => [
-        ['speed' => 220, 'size' => '3360'],
-        ['speed' => 240, 'size' => '2450'],
-        ['speed' => 250, 'size' => '3670'],
-        ['speed' => 230, 'size' => '2870'],
-        ['speed' => 180, 'size' => '2990'],
+        ['speed' => 220, 'size' => '3360', 'cargo' => 25],
+        ['speed' => 240, 'size' => '2450', 'cargo' => 25],
+        ['speed' => 250, 'size' => '3670', 'cargo' => 25],
+        ['speed' => 230, 'size' => '2870', 'cargo' => 25],
+        ['speed' => 180, 'size' => '2990', 'cargo' => 25],
     ],
     'preferences' => [
         'speed' =>

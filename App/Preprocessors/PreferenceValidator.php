@@ -6,7 +6,7 @@ class PreferenceValidator extends Validator
 {
     protected const INVALID_DATA = 'Preferences are invalid';
 
-    public function validate()
+    public function validate() : array
     {
         foreach ($this->inputData as $preference){
             if (isset($preference['direction']) && isset($preference['weight'])) {
