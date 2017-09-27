@@ -14,18 +14,12 @@ class CompatibilityValidator extends Validator
         $this->preferences = $preferences;
     }
 
-    public function validate()
+    public function validate() : array
     {
         $objectParams = array_keys($this->inputData[0]);
         $prefParams = array_keys($this->preferences);
 
-        if ($objectParams == $prefParams) return $this->success();
-
-        foreach ($prefParams as $preference){
-            if (!in_array($preference, $objectParams)) {
-                $this->fails();
-            }
-        }
+        if (!empty(array_diff($prefParams, $objectParams))) $this->fails();
 
         return $this->success();
     }

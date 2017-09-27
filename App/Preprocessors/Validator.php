@@ -14,7 +14,7 @@ abstract class Validator
         $this->inputData = $data;
     }
 
-    abstract public function validate();
+    abstract public function validate() : array;
 
     protected function fails()
     {

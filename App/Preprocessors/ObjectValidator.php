@@ -6,7 +6,7 @@ class ObjectValidator extends Validator
 {
     protected const INVALID_DATA = 'Objects are invalid';
 
-    public function validate()
+    public function validate() : array
     {
         if (count($this->inputData) < 2) $this->fails(); //There is no need to range 1 or zero objects
 
