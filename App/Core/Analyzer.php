@@ -79,11 +79,19 @@ class Analyzer
             }
 
             //Making whole object's priority
-            $object = array_sum($object);
+            $object = $this->getObjectMark($object);
         }
 
         asort($this->preparedObjects);
         $this->preparedObjects = array_keys($this->preparedObjects);
+    }
+
+    function getObjectMark($object){
+        $sum = 0;
+        foreach (array_keys($this->preferences) as $preferedProp){
+            $sum += $object[$preferedProp];
+        }
+        return $sum;
     }
 
     function getOrderedObjects()

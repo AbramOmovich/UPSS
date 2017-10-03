@@ -38,6 +38,7 @@ class Application
 
     private function sendToValidator(Request $request)
     {
+        //TODO: IMPLEMENT CHAIN RESPONSIBILITY
         switch ($this->state){
             case self::STATE_OBJECTS :
                 $validator = new ObjectValidator($request['objects']);
@@ -61,10 +62,9 @@ class Application
 
     private function prepareResponse(Request $request)
     {
-        switch ($this->state){
+        switch ($this->state) {
             case self::STATE_OBJECTS :
-                $preferences = $this->initPreferences(array_keys($request['objects'][0]));
-                return $preferences;
+                return $this->initPreferences(array_keys($request['objects'][0]));
 
             case self::STATE_PREFERENCES and self::STATE_OBJECTS :
                 return $this->sendToAnalyzer($request);
@@ -75,7 +75,7 @@ class Application
 
     private function initPreferences($prefs)
     {
-        foreach ($prefs as &$pref){
+        foreach ($prefs as &$pref) {
             $pref = [
                 $pref => [
                     'direction' => 1, // 1 stands for max, 0 for min
