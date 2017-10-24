@@ -1,12 +1,12 @@
 <?php
 
-use UPSS\App\Application;
-use UPSS\App\Request;
+use UPSS\Config;
+use UPSS\Preprocessing\RequestHandler;
 
 include 'vendor/autoload.php';
-include 'params.php';
+include 'mock_params.php';
 
-$app = new Application();
-$response = $app->handleRequest(Request::create($params));
-echo $response->send();
+new Config('settings.php');
 
+RequestHandler::setTypeDetector(Config::getInstance()->get('type_detector'));
+$entityCollection = RequestHandler::createFromGlobals();
