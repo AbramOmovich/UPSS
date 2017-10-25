@@ -2,9 +2,12 @@
 
 namespace UPSS\Preprocessing\EntityFactory;
 
+use UPSS\Preprocessing\Entities\IEntity;
+use UPSS\Preprocessing\EntityCollection\EntityCollection;
 use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 use UPSS\Preprocessing\EntityFactory\Factories\IEntityFactory;
-use UPSS\Preprocessing\Validator\AbstractValidator;
+use UPSS\Preprocessing\Validator\IEntityValidator;
+use UPSS\Preprocessing\Validator\ValidationException;
 
 class EntityFactory
 {
@@ -14,24 +17,33 @@ class EntityFactory
 	  private $data;
 	  private $validator;
 
-	  public function createEntityCollection(mixed $data, string $type) : IEntityCollection
+	  public function createEntityCollection(array $data, string $type) : IEntityCollection
 	  {
 	      $this->data = $data;
 	      $this->type = $type;
 
 	      $this->resolveConcreteFactory();
 	      $entities = $this->createEntities();
+	      $preferences = $this->createPreferences();
+
+	      $collection = new EntityCollection();
+	      $collection->setPreferences($preferences);
+	      foreach ($entities as $entity){
+	          $collection->addToCollection($entity);
+        }
+
+        return $collection;
 	  }
 
 
-	  public function setValidator(AbstractValidator $validator)
+	  public function setValidator(IEntityValidator $validator)
 	  {
 	      $this->validator = $validator;
 	  }
 
 	  private function resolveConcreteFactory()
 	  {
-	      $factoryClassName = 'Factories\\' . ucfirst($this->type) . 'EntityFactory';
+	      $factoryClassName = __NAMESPACE__ . '\\Factories\\' . ucfirst(strtolower($this->type)) . 'EntityFactory';
 	      $factory = new $factoryClassName;
 	      if ($factory instanceof IEntityFactory){
             $this->concreteFactory = $factory;
@@ -42,23 +54,33 @@ class EntityFactory
 
 	  private function createPreferences()
 	  {
+	      return $this->concreteFactory->createPreferences();
 	  }
 
 	  private function createEntities() : array
 	  {
 	      $entities = [];
-	      $this->concreteFactory->setInputData($this->data);
-	      while ($this->concreteFactory->hasMoreObjects()){
-	          $entity = $this->concreteFactory->createEntity();
-	          if ($this->validator->validate($entity)){
+	      $concreteFactory = $this->concreteFactory;
+	      $concreteFactory->setInputData($this->data);
+	      $index = 0;
+	      while ($concreteFactory->hasMoreObjects()){
+	          $entity = $concreteFactory->createEntity();
+	          if ($this->validateEntity($entity, $index)){
 	              $entities []= $entity;
-	              //TODO: Handle invalid objects
             }
+
+            $index++;
         }
+
+        return $entities;
 	  }
 
-	  private function validateEntity()
+	  private function validateEntity(IEntity $entity, int $index)
 	  {
+	      if ($this->validator->validate($entity)){
+	          return true;
+        }
+        throw new ValidationException("Entity [{$index}] is invalid");
 	  }
 
 }

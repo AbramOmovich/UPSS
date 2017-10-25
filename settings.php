@@ -1,9 +1,9 @@
 <?php
 
 use UPSS\Preprocessing\TypeDetector\MockTypeDetector;
-use UPSS\Preprocessing\Validator\EntityObjectsValidator;
+use UPSS\Preprocessing\Validator\EntityPropertiesValidator;
 
 return [
-  'validator' => EntityObjectsValidator::class,
+  'validator' => EntityPropertiesValidator::class,
   'type_detector' => MockTypeDetector::class
 ];

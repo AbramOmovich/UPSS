@@ -10,7 +10,7 @@ class HttpEntityFactory implements IEntityFactory
 {
     private $data;
     private $length;
-    private $offset;
+    private $offset = '';
     private const UNABLE_TO_CREATE = 'Unable to create entity. Offset {offset} not exists';
     private const PREFERENCES_NOT_EXISTS = 'Unable to create preferences.';
 
@@ -20,7 +20,7 @@ class HttpEntityFactory implements IEntityFactory
             if (isset($this->data['objects'][$this->offset])) {
                 $entity = new HttpEntity();
 
-                $reflectionClass = new \ReflectionClass('HttpEntity');
+                $reflectionClass = new \ReflectionClass(HttpEntity::class);
                 $reflectionProperty = $reflectionClass->getProperty('properties');
                 $reflectionProperty->setAccessible(true);
                 $reflectionProperty->setValue($entity, $this->data['objects'][$this->offset]);
@@ -41,7 +41,7 @@ class HttpEntityFactory implements IEntityFactory
     }
 
 
-    public function createPreferences(): array
+    public function createPreferences() : array
     {
         if (isset($this->data['preferences'])) {
             return $this->data['preferences'];

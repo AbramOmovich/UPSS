@@ -1,50 +1,33 @@
 <?php
-require_once('IEntityFactory.php');
-require_once('JsonEntity.php');
 
-namespace Packages\UPSS;
+namespace UPSS\Preprocessing\EntityFactory\Factories;
 
+use UPSS\Preprocessing\Entities\IEntity;
 
-
-use Packages\UPSS;
-use Packages\UPSS;
-/**
- * @author �����
- * @version 1.0
- * @created 24-���-2017 11:50:05
- */
 class JsonEntityFactory implements IEntityFactory
 {
+    public function createEntity() : IEntity
+    {
+        // TODO: Implement createEntity() method.
+    }
 
-	function __construct()
-	{
-	}
+    public function setInputData($data)
+    {
+        // TODO: Implement setInputData() method.
+    }
 
-	function __destruct()
-	{
-	}
+    public function createPreferences() : array
+    {
+        // TODO: Implement createPreferences() method.
+    }
 
+    public function hasMoreObjects() : bool
+    {
+        // TODO: Implement hasMoreObjects() method.
+    }
 
-
-	public function createEntity()
-	{
-	}
-
-	public function setInputData()
-	{
-	}
-
-	public function createPreferences()
-	{
-	}
-
-	public function hasMoreObjects()
-	{
-	}
-
-	public function hasObjects()
-	{
-	}
-
+    public function hasObjects() : bool
+    {
+        // TODO: Implement hasObjects() method.
+    }
 }
-?>

@@ -7,7 +7,7 @@ class Config
     private const CONFIG_MISSING = 'Config entry [{entry}] is missing';
 
     private static $instance;
-    private $conifg;
+    private $config;
 
     public static function getInstance()
     {
@@ -16,7 +16,7 @@ class Config
 
     public function __construct(string $file)
     {
-        $this->config = $file;
+        $this->config = require_once $file;
         self::$instance = $this;
     }
 

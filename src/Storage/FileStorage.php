@@ -46,4 +46,3 @@ class FileStorage implements IStorage
         // TODO: Implement get() method.
     }
 }
-?>

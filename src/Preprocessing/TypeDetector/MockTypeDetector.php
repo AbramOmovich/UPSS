@@ -4,7 +4,7 @@ namespace UPSS\Preprocessing\TypeDetector;
 
 class MockTypeDetector implements ITypeDetector
 {
-    public function detectType(mixed $data) : string
+    public function detectType($data) : string
     {
         return "HTTP";
     }
