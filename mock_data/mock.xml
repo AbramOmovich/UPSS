@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <objects>
+        <object>
+            <speed>334</speed>
+            <size>3882</size>
+            <name>bulgar</name>
+            <weight>1800</weight>
+        </object>
+        <object>
+            <speed>239</speed>
+            <size>3000</size>
+            <name>
+                <speed>300</speed>
+                <size>2800</size>
+                <name>cramar</name>
+                <weight>1800</weight>
+            </name>
+            <weight>1800</weight>
+        </object>
+        <object>
+            <speed>300</speed>
+            <size>2800</size>
+            <name>cramar</name>
+            <weight>1800</weight>
+        </object>
+        <object>
+            <speed>287</speed>
+            <size>2940</size>
+            <name>endrix</name>
+            <weight>1800</weight>
+        </object>
+    </objects>
+    <preferences>
+        <speed>
+            <direction>1</direction>
+            <weight>0.7</weight>
+        </speed>
+        <size>
+            <direction>0</direction>
+            <weight>0.3</weight>
+        </size>
+    </preferences>
+</data>

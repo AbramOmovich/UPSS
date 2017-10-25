@@ -14,5 +14,5 @@ interface IEntityFactory
 
 	public function hasMoreObjects() : bool ;
 
-	public function hasObjects() : bool ;
+	public function hasObjects() : bool;
 }

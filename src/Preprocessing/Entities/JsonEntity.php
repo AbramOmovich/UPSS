@@ -4,28 +4,24 @@ namespace UPSS\Preprocessing\Entities;
 
 class JsonEntity implements IEntity
 {
+    private $properties;
+
     public function offsetExists($offset)
     {
-        // TODO: Implement offsetExists() method.
+        return isset($this->properties[$offset]);
     }
 
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        return $this->properties[$offset];
     }
 
-    public function offsetSet($offset, $value)
-    {
-        // TODO: Implement offsetSet() method.
-    }
+    public function offsetSet($offset, $value) {}
 
     public function getProperties(): array
     {
-        // TODO: Implement getProperties() method.
+        return $this->properties;
     }
 
-    public function offsetUnset($offset)
-    {
-        // TODO: Implement offsetUnset() method.
-    }
+    public function offsetUnset($offset) {}
 }

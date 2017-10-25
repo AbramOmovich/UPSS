@@ -2,7 +2,7 @@
 
 namespace UPSS\Preprocessing\EntityFactory;
 
-class EntityCreationException
+class EntityCreationException extends \Exception
 {
 
 }

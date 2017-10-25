@@ -4,6 +4,7 @@
  *
  */
 
+
 $params = [
     'data' => [
       'objects' => [
@@ -27,6 +28,21 @@ $params = [
       ]
     ]
 ];
+
+
+//XML data
+/*$params = [
+  'data' => file_get_contents( 'mock_data/mock.xml'),
+  'format' => 'xml'
+];*/
+
+/*
+//JSON data
+$params = [
+  'data' => file_get_contents( 'mock_data/mock.json'),
+  'format' => 'json'
+];
+*/
 
 if (!isset($_SERVER['REQUEST_METHOD'])){
     $_SERVER['REQUEST_METHOD'] = 'CLI';

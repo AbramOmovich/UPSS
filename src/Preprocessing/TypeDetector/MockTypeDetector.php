@@ -9,4 +9,3 @@ class MockTypeDetector implements ITypeDetector
         return "HTTP";
     }
 }
-?>

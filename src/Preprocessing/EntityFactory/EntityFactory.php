@@ -17,14 +17,15 @@ class EntityFactory
 	  private $data;
 	  private $validator;
 
-	  public function createEntityCollection(array $data, string $type) : IEntityCollection
+	  public function createEntityCollection($data, string $type) : IEntityCollection
 	  {
 	      $this->data = $data;
 	      $this->type = $type;
 
 	      $this->resolveConcreteFactory();
+        $this->concreteFactory->setInputData($this->data);
+        $preferences = $this->createPreferences();
 	      $entities = $this->createEntities();
-	      $preferences = $this->createPreferences();
 
 	      $collection = new EntityCollection();
 	      $collection->setPreferences($preferences);
@@ -61,15 +62,12 @@ class EntityFactory
 	  {
 	      $entities = [];
 	      $concreteFactory = $this->concreteFactory;
-	      $concreteFactory->setInputData($this->data);
 	      $index = 0;
 	      while ($concreteFactory->hasMoreObjects()){
 	          $entity = $concreteFactory->createEntity();
 	          if ($this->validateEntity($entity, $index)){
 	              $entities []= $entity;
             }
-
-            $index++;
         }
 
         return $entities;
