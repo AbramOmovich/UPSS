@@ -6,7 +6,7 @@ use UPSS\Preprocessing\Entities\IEntity;
 
 interface IEntityCollection
 {
-	public function getObjects() : array ;
+	public function getEntities() : array;
 
 	public function getPreferences();
 
@@ -15,4 +15,8 @@ interface IEntityCollection
 	public function setPreferences(array $preferences);
 
 	public function removeFromCollection($index);
+
+	public function clearEntities();
+
+	public function getRaw() : string;
 }

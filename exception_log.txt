@@ -1,0 +1,7 @@
+//////////////////////////
+TypeError: Return value of UPSS\Storage\FileStorage::insert() must implement interface UPSS\Storage\IStorage, none returned in D:\WebData\UPSS\src\Storage\FileStorage.php:74
+Stack trace:
+#0 D:\WebData\UPSS\src\Controller\MainController.php(88): UPSS\Storage\FileStorage->insert('result', 'O:52:"UPSS\\Prep...')
+#1 D:\WebData\UPSS\src\Controller\MainController.php(48): UPSS\Controller\MainController->saveInStorage('result', Object(UPSS\Preprocessing\EntityCollection\EntityCollection))
+#2 D:\WebData\UPSS\index.php(24): UPSS\Controller\MainController->handle()
+#3 {main}

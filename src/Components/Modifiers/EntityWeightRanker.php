@@ -6,11 +6,32 @@ use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 
 class EntityWeightRanker implements IModifier
 {
+    private $weights;
+    private $collection;
 
-    private $analysisResults;
+    public function modify(IEntityCollection $data, array $analytics = [])
+    {
+        if (isset($analytics['weights'])){
+            $this->collection = $data;
+            $this->weights = $analytics['weights'];
+            $this->rangeCollection();
+        }
+    }
 
-    public function modify(IEntityCollection $data, array $analytics = []) {}
+    private function rangeCollection()
+    {
+        $entities = $this->collection->getEntities();
+        $this->collection->clearEntities();
+        asort($this->weights);
+        $rangedEntities = [];
 
-    private function rangeCollection(){}
+        foreach ($this->weights as $index => $weight){
+            $rangedEntities []= $entities[$index];
+        }
+
+        foreach ($rangedEntities as $entity){
+            $this->collection->addToCollection($entity);
+        }
+    }
 
 }

@@ -1,15 +1,27 @@
 <?php
 
 use UPSS\Config;
+use UPSS\Controller\MainController;
+use UPSS\Postprocessing\ExceptionHandler;
+use UPSS\Postprocessing\ResponseHandler;
 use UPSS\Preprocessing\RequestHandler;
+use UPSS\Storage\FileStorage;
 
 include 'vendor/autoload.php';
 include 'mock_params.php';
 
-new Config('settings.php');
+$config = new Config('settings.php');
+$responseHandler = new ResponseHandler();
+$exceptionHandler = new ExceptionHandler($responseHandler);
 
-$type_detector = Config::getInstance()->get('type_detector');
+$type_detector = $config->get('type_detector');
 RequestHandler::setTypeDetector(new $type_detector);
 $entityCollection = RequestHandler::createFromGlobals();
 
-var_dump($entityCollection);
+$storageSettings = $config->get('storage');
+$components = $config->get('components');
+$controller = new MainController($entityCollection, $components, new FileStorage($storageSettings));
+$entityCollection = $controller->handle();
+$responseHandler->setData($entityCollection);
+echo $responseHandler->send();
+

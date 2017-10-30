@@ -6,11 +6,11 @@ interface IStorage
 {
 	  public function __construct(array $settings);
 
-	  public function select(string $bin);
+	  public function select(string $type) : IStorage;
 
-	  public function condition(string $field, string $value, string $operator, string $condition);
+	  public function where(string $field, string $value, string $operator = '=') : IStorage;
 
-	  public function insert(array $data);
+	  public function insert(string $type, $data) : IStorage;
 
 	  public function update(array $data);
 

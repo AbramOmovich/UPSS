@@ -9,7 +9,7 @@ class EntityCollection implements IEntityCollection
     private $entities = [];
     private $preferences;
 
-    public function getObjects() : array
+    public function getEntities() : array
     {
         return $this->entities;
     }
@@ -36,5 +36,23 @@ class EntityCollection implements IEntityCollection
         } else {
             throw new \Exception("Offset {$index} not exists in collection");
         }
+    }
+
+
+    public function getRaw(): string
+    {
+        $output = [];
+        $output['preferences'] = $this->preferences;
+        $output['objects'] = [];
+        foreach ($this->entities as $entity){
+            $output['objects'][] = $entity->getProperties();
+        }
+
+        return json_encode($output);
+    }
+
+    public function clearEntities()
+    {
+       unset($this->entities);
     }
 }
