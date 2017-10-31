@@ -15,7 +15,7 @@ $params = [
                 'weight' => 891,
             ],
             [
-                'speed' => 500,
+                'speed' => 1000,
                 'size' => '3670',
                 [
                     [
@@ -31,19 +31,18 @@ $params = [
                 'name' => 'car3',
                 'weight' => 777,
             ],
-           /* [
-                'speed' => 500,
-                'size' => '8340',
+          [
+              'speed' => 1100,
+              'size' => '2870',
                 'name' => 'car3',
                 'weight' => 777,
             ],
-            [
-                'speed' => 230,
-                'size' => '2870',
+             [
+
                 'name' => 'car4',
                 'weight' => 812,
-            ],
-            [
+             ],
+             /* [
                 'speed' => 300,
                 'size' => '2990',
                 'name' => 'car5',

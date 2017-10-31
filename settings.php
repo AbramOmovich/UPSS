@@ -1,6 +1,6 @@
 <?php
 
-use UPSS\Components\Analyzers\EntityScalarWeightAnalyzer;
+use UPSS\Components\Analyzers\EntityNumericPropertyAnalyzer;
 use UPSS\Components\Modifiers\EntityWeightRanker;
 use UPSS\Preprocessing\TypeDetector\MockTypeDetector;
 use UPSS\Preprocessing\Validator\EntityPropertiesValidator;
@@ -15,7 +15,7 @@ return [
     ],
     'components' => [
         'analyzers' => [
-            EntityScalarWeightAnalyzer::class,
+            EntityNumericPropertyAnalyzer::class,
         ],
         'modifiers' => [
             EntityWeightRanker::class,

@@ -11,9 +11,9 @@ class EntityWeightRanker implements IModifier
 
     public function modify(IEntityCollection $data, array &$analytics = [])
     {
-        if (isset($analytics['scalar_weights'])){
+        if (isset($analytics['numeric_weights'])){
             $this->collection = $data;
-            $this->weights = $analytics['scalar_weights'];
+            $this->weights = $analytics['numeric_weights'];
             $this->rangeCollection();
         }
     }
@@ -22,11 +22,18 @@ class EntityWeightRanker implements IModifier
     {
         $entities = $this->collection->getEntities();
         $this->collection->clearEntities();
-        asort($this->weights);
+        arsort($this->weights);
         $rangedEntities = [];
 
         foreach ($this->weights as $index => $weight){
             $rangedEntities []= $entities[$index];
+            unset($entities[$index]);
+        }
+        if (!empty($entities)){
+            foreach ($entities as $index => $entity) {
+                $rangedEntities []= $entity;
+                unset($entities[$index]);
+            }
         }
 
         foreach ($rangedEntities as $entity){
