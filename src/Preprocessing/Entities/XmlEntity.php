@@ -7,6 +7,14 @@ class XmlEntity implements IEntity
     private $node;
     private $properties;
 
+    public function __sleep()
+    {
+        if (!isset($this->properties)){
+            $this->initProperties();
+        }
+        return ['properties'];
+    }
+
     public function offsetExists($offset)
     {
         return (isset($this->properties[$offset]));

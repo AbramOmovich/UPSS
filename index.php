@@ -20,7 +20,7 @@ $entityCollection = RequestHandler::createFromGlobals();
 
 $storageSettings = $config->get('storage');
 $components = $config->get('components');
-$controller = new MainController($entityCollection, $components, new FileStorage($storageSettings));
+$controller = new MainController($entityCollection, $components);
 $entityCollection = $controller->handle();
 $responseHandler->setData($entityCollection);
 echo $responseHandler->send();

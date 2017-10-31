@@ -6,5 +6,5 @@ use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 
 interface IAnalyzer
 {
-    public function analyze(IEntityCollection $data) : array;
+    public function analyze(IEntityCollection $data): array;
 }

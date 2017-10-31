@@ -54,18 +54,21 @@ class FileStorage implements IStorage
                     $this->where['folder'] . DIRECTORY_SEPARATOR .
                     $this->where['name'] . DIRECTORY_SEPARATOR .
                     $this->type;
-                $this->cleanFields();
+
                 if (file_exists($file)){
                     if ($this->returnResult){
                         $result = file_get_contents($file);
+                        $this->cleanFields();
                         if ($result) {
                             return $result;
                         } else {
                             return [];
                         }
                     }
+                    $this->cleanFields();
                     return true;
                 } else {
+                    $this->cleanFields();
                     return false;
                 }
                 break;
@@ -106,6 +109,7 @@ class FileStorage implements IStorage
         $this->type = null;
         $this->where = [];
         $this->data = null;
+        $this->returnResult = false;
     }
 
     public function get()
@@ -119,17 +123,6 @@ class FileStorage implements IStorage
         $this->queryType = __FUNCTION__;
         $this->type = $type;
         $this->data = $data;
-        $this->returnResult = false;
         return $this;
-    }
-
-    public function update(array $data)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function merge(array $data)
-    {
-        // TODO: Implement merge() method.
     }
 }

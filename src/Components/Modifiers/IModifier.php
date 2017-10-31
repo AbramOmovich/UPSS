@@ -6,5 +6,5 @@ use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 
 interface IModifier
 {
-    public function modify(IEntityCollection $data, array $analytics = []);
+    public function modify(IEntityCollection $data, array &$analytics = []);
 }

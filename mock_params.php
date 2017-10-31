@@ -7,26 +7,62 @@
 
 $params = [
     'data' => [
-      'objects' => [
-        ['speed' => 220, 'size' => '2780',  'name' => 'car1', 'weight' => 891],
-        ['speed' => 240, 'size' => '3450', 'weight' => 750],
-        ['speed' => 250, 'size' => '3670', 'name' => 'car3', 'weight' => 777],
-        ['speed' => 230, 'size' => '2870', 'name' => 'car4', 'weight' => 812],
-        ['speed' => 300, 'size' => '2990', 'name' => 'car5', 'weight' => 784],
-      ],
-      'preferences' => [
-        'speed' =>
-          [
-            'direction' => 1, // 1 stands for max, 0 for min
-            'weight' => 0.9   // Less important param has less weight
-          ],
-        'size' =>
-          [
-            'direction' => 1,
-            'weight' => 0.1
-          ],
-      ]
-    ]
+        'objects' => [
+            [
+                'speed' => 1000,
+                'size' => '2780',
+                'name' => 'car1',
+                'weight' => 891,
+            ],
+            [
+                'speed' => 500,
+                'size' => '3670',
+                [
+                    [
+                        'speed' => 700,
+                        'size' => '4670',
+                        'name' => 'car3',
+                        'weight' => 777,
+                    ],
+                    'size' => '4670',
+                    'name' => 'car3',
+                    'weight' => 777,
+                ],
+                'name' => 'car3',
+                'weight' => 777,
+            ],
+           /* [
+                'speed' => 500,
+                'size' => '8340',
+                'name' => 'car3',
+                'weight' => 777,
+            ],
+            [
+                'speed' => 230,
+                'size' => '2870',
+                'name' => 'car4',
+                'weight' => 812,
+            ],
+            [
+                'speed' => 300,
+                'size' => '2990',
+                'name' => 'car5',
+                'weight' => 784,
+            ],*/
+        ],
+        'preferences' => [
+            'speed' =>
+                [
+                    'direction' => 1, // 1 stands for max, 0 for min
+                    'weight' => 1   // Less important param has less weight
+                ],
+            'size' =>
+                [
+                    'direction' => 1,
+                    'weight' => 0.1,
+                ],
+        ],
+    ],
 ];
 
 
@@ -44,8 +80,8 @@ $params = [
 ];
 */
 
-if (!isset($_SERVER['REQUEST_METHOD'])){
+if (!isset($_SERVER['REQUEST_METHOD'])) {
     $_SERVER['REQUEST_METHOD'] = 'CLI';
 }
 
-$GLOBALS['_' . $_SERVER['REQUEST_METHOD']] = $params;
+$GLOBALS['_'.$_SERVER['REQUEST_METHOD']] = $params;

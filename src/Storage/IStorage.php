@@ -12,10 +12,6 @@ interface IStorage
 
 	  public function insert(string $type, $data) : IStorage;
 
-	  public function update(array $data);
-
-	  public function merge(array $data);
-
 	  public function execute();
 
 	  public function get();
