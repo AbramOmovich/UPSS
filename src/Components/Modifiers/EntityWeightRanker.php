@@ -22,6 +22,8 @@ class EntityWeightRanker implements IModifier
     {
         $entities = $this->collection->getEntities();
         $this->collection->clearEntities();
+
+        //The more weight entity has the more it's preferable
         arsort($this->weights);
         $rangedEntities = [];
 

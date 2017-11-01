@@ -15,6 +15,8 @@ return [
         'class' => FileStorage::class,
         'folder' => __DIR__ . DIRECTORY_SEPARATOR . 'storage'
     ],
+
+    //sequence for launching components
     'components' => [
         'analyzers' => [
             EntityNumericPropertyAnalyzer::class,

@@ -39,7 +39,7 @@ class EntityCollection implements IEntityCollection
     }
 
 
-    public function getRaw(): string
+    public function getAsArray() : array
     {
         $output = [];
         $output['preferences'] = $this->preferences;
@@ -48,7 +48,7 @@ class EntityCollection implements IEntityCollection
             $output['objects'][] = $entity->getProperties();
         }
 
-        return json_encode($output);
+        return $output;
     }
 
     public function clearEntities()

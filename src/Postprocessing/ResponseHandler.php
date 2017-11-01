@@ -25,16 +25,19 @@ class ResponseHandler implements IExceptionProcessor
     public function send() : string
     {
         $this->header(200);
-        return $this->data->getRaw();
+        return json_encode($this->data);
     }
 
     public function setData(IEntityCollection $data)
     {
-        $this->data = $data;
+        $this->data = $data->getAsArray();
     }
 
     private function header(int $code)
     {
-        header('HTTP/1.1' . " {$code} ". self::HTTP_HEADERS[$code],true, $code);
+        if (isset($_SERVER['SERVER_PROTOCOL'])){
+            header($_SERVER['SERVER_PROTOCOL'] . " {$code} ".
+                self::HTTP_HEADERS[$code],true, $code);
+        }
     }
 }

@@ -18,5 +18,5 @@ interface IEntityCollection
 
 	public function clearEntities();
 
-	public function getRaw() : string;
+	public function getAsArray() : array;
 }
