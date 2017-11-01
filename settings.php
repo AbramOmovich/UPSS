@@ -1,7 +1,9 @@
 <?php
 
 use UPSS\Components\Analyzers\EntityNumericPropertyAnalyzer;
+use UPSS\Components\Analyzers\EntityStringPropertiesAnalyzer;
 use UPSS\Components\Modifiers\EntityWeightRanker;
+use UPSS\Components\Modifiers\WeightSummator;
 use UPSS\Preprocessing\TypeDetector\MockTypeDetector;
 use UPSS\Preprocessing\Validator\EntityPropertiesValidator;
 use UPSS\Storage\FileStorage;
@@ -16,8 +18,10 @@ return [
     'components' => [
         'analyzers' => [
             EntityNumericPropertyAnalyzer::class,
+            EntityStringPropertiesAnalyzer::class
         ],
         'modifiers' => [
+            WeightSummator::class,
             EntityWeightRanker::class,
         ],
     ],

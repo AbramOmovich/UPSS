@@ -7,7 +7,6 @@ use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 class EntityNumericPropertyAnalyzer implements IAnalyzer
 {
 
-    private const MAX_WEIGHT = 40000;
     private const NESTING_COEFFICIENT = 0.8;
 
     private $weights = [];
@@ -37,6 +36,8 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
         foreach ($this->weights as &$entity){
             foreach ($entity as $property => $value){
                 $entity[$property] = array_sum($value);
+
+                //applying property weight
                 $entity[$property] = $entity[$property] * $this->preferences[$property]['weight'];
             }
             $entity = array_sum($entity);
@@ -56,13 +57,13 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
         foreach ($properties as $propertyName => $propertyValue){
             if (isset($this->preferences[$propertyName]) && !is_array($propertyValue)){
 
-                if (is_numeric($propertyValue)){
+                if (is_numeric($propertyValue) && isset($this->preferences[$propertyName]['direction'])){
 
                     $propertyWeight = 0;
                     if ($this->preferences[$propertyName]['direction'] == 1) {
                         $propertyWeight += $properties[$propertyName] / $this->extrema[$propertyName];
                     } elseif ($this->preferences[$propertyName]['direction'] == 0) {
-                        $propertyWeight += $this->extrema[$propertyWeight] / $properties[$propertyName];
+                        $propertyWeight += $this->extrema[$propertyName] / $properties[$propertyName];
                     }
 
                     if($nesting){
@@ -92,7 +93,7 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
             //if it's user's preferred property
             if (isset($this->preferences[$propertyName]) && !is_array($propertyValue)){
 
-                if (is_numeric($propertyValue)){
+                if (is_numeric($propertyValue) && isset($this->preferences[$propertyName]['direction'])){
                     if (isset($this->extrema[$propertyName])) {
 
                         //extrema for maximization

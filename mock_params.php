@@ -11,7 +11,7 @@ $params = [
             [
                 'speed' => 1000,
                 'size' => '2780',
-                'name' => 'car1',
+                'name' => '123',
                 'weight' => 891,
             ],
             [
@@ -31,23 +31,23 @@ $params = [
                 'name' => 'car3',
                 'weight' => 777,
             ],
-          [
+            [
               'speed' => 1100,
               'size' => '2870',
-                'name' => 'car3',
-                'weight' => 777,
+              'name' => 'car3',
+              'weight' => 777,
             ],
              [
 
-                'name' => 'car4',
-                'weight' => 812,
+                'name' => 'car',
+                'weight' => 8122,
              ],
-             /* [
+             [
                 'speed' => 300,
                 'size' => '2990',
-                'name' => 'car5',
+                'name' => '123',
                 'weight' => 784,
-            ],*/
+            ],
         ],
         'preferences' => [
             'speed' =>
@@ -60,6 +60,12 @@ $params = [
                     'direction' => 1,
                     'weight' => 0.1,
                 ],
+            'name' =>
+                [
+                    'match' => 'car',
+                    'weight' => 0.5
+                ]
+
         ],
     ],
 ];
@@ -71,13 +77,13 @@ $params = [
   'format' => 'xml'
 ];*/
 
-/*
-//JSON data
+
+/*//JSON data
 $params = [
   'data' => file_get_contents( 'mock_data/mock.json'),
   'format' => 'json'
-];
-*/
+];*/
+
 
 if (!isset($_SERVER['REQUEST_METHOD'])) {
     $_SERVER['REQUEST_METHOD'] = 'CLI';

@@ -32,3 +32,56 @@ Stack trace:
 #1 D:\WebData\UPSS\src\Controller\MainController.php(55): UPSS\Controller\MainController->sendToModifiers()
 #2 D:\WebData\UPSS\index.php(24): UPSS\Controller\MainController->handle()
 #3 {main}
+//////////////////////////
+Exception: No data provided in D:\WebData\UPSS\src\Preprocessing\RequestHandler.php:47
+Stack trace:
+#0 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#1 {main}
+//////////////////////////
+Exception: No data provided in D:\WebData\UPSS\src\Preprocessing\RequestHandler.php:47
+Stack trace:
+#0 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#1 {main}
+//////////////////////////
+Exception: No data provided in D:\WebData\UPSS\src\Preprocessing\RequestHandler.php:47
+Stack trace:
+#0 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#1 {main}
+//////////////////////////
+Exception: XML data supplied is invalid in D:\WebData\UPSS\src\Preprocessing\EntityFactory\Factories\XmlEntityFactory.php:43
+Stack trace:
+#0 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(26): UPSS\Preprocessing\EntityFactory\Factories\XmlEntityFactory->setInputData('<?xml version="...')
+#1 D:\WebData\UPSS\src\Preprocessing\RequestHandler.php(44): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntityCollection('<?xml version="...', 'xml')
+#2 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#3 {main}
+//////////////////////////
+Exception: XML data supplied is invalid in D:\WebData\UPSS\src\Preprocessing\EntityFactory\Factories\XmlEntityFactory.php:43
+Stack trace:
+#0 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(26): UPSS\Preprocessing\EntityFactory\Factories\XmlEntityFactory->setInputData('<?xml version="...')
+#1 D:\WebData\UPSS\src\Preprocessing\RequestHandler.php(44): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntityCollection('<?xml version="...', 'xml')
+#2 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#3 {main}
+//////////////////////////
+UPSS\Preprocessing\Validator\ValidationException: Entity [0] is invalid in D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php:81
+Stack trace:
+#0 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(68): UPSS\Preprocessing\EntityFactory\EntityFactory->validateEntity(Object(UPSS\Preprocessing\Entities\XmlEntity), 0)
+#1 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(28): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntities()
+#2 D:\WebData\UPSS\src\Preprocessing\RequestHandler.php(44): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntityCollection('<?xml version="...', 'xml')
+#3 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#4 {main}
+//////////////////////////
+UPSS\Preprocessing\Validator\ValidationException: Entity [0] is invalid in D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php:81
+Stack trace:
+#0 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(68): UPSS\Preprocessing\EntityFactory\EntityFactory->validateEntity(Object(UPSS\Preprocessing\Entities\XmlEntity), 0)
+#1 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(28): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntities()
+#2 D:\WebData\UPSS\src\Preprocessing\RequestHandler.php(44): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntityCollection('<?xml version="...', 'xml')
+#3 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#4 {main}
+//////////////////////////
+UPSS\Preprocessing\Validator\ValidationException: Entity [0] is invalid in D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php:81
+Stack trace:
+#0 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(68): UPSS\Preprocessing\EntityFactory\EntityFactory->validateEntity(Object(UPSS\Preprocessing\Entities\XmlEntity), 0)
+#1 D:\WebData\UPSS\src\Preprocessing\EntityFactory\EntityFactory.php(28): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntities()
+#2 D:\WebData\UPSS\src\Preprocessing\RequestHandler.php(44): UPSS\Preprocessing\EntityFactory\EntityFactory->createEntityCollection('<?xml version="...', 'xml')
+#3 D:\WebData\UPSS\index.php(19): UPSS\Preprocessing\RequestHandler::createFromGlobals()
+#4 {main}
