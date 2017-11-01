@@ -13,7 +13,7 @@ class EntityWeightRanker implements IModifier
     {
         if (!empty($analytics)){
             $this->collection = $data;
-            $this->weights = $analytics;
+            $this->weights = array_values($analytics)[0];
             $this->rangeCollection();
         }
     }

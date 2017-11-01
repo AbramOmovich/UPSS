@@ -29,6 +29,6 @@ class WeightSummator implements IModifier
                 }
             }
         }
-        $this->results = $summedWeights;
+        $this->results = [ $summedWeights ];
     }
 }
