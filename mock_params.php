@@ -7,29 +7,11 @@
 
 $params = [
     'data' => [
-        'objects' => [
             [
                 'speed' => 1000,
                 'size' => '2780',
                 'name' => '123',
                 'weight' => 891,
-            ],
-            [
-                'speed' => 1000,
-                'size' => '3670',
-                [
-                    [
-                        'speed' => 700,
-                        'size' => '4670',
-                        'name' => 'car3',
-                        'weight' => 777,
-                    ],
-                    'size' => '4670',
-                    'name' => 'car3',
-                    'weight' => 777,
-                ],
-                'name' => 'car3',
-                'weight' => 777,
             ],
             [
               'speed' => 1100,
@@ -48,25 +30,6 @@ $params = [
                 'name' => '123',
                 'weight' => 784,
             ],
-        ],
-        'preferences' => [
-            'speed' =>
-                [
-                    'direction' => 1, // 1 stands for max, 0 for min
-                    'weight' => 1   // Less important param has less weight
-                ],
-            'size' =>
-                [
-                    'direction' => 1,
-                    'weight' => 0.1,
-                ],
-            'name' =>
-                [
-                    'match' => 'car',
-                    'weight' => 0.5
-                ]
-
-        ],
     ],
 ];
 

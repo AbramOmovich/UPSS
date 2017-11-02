@@ -8,6 +8,7 @@ class EntityPropertiesValidator implements IEntityValidator
 {
     public function validate(IEntity $entity): bool
     {
+        //TODO: remake validation
         $properties = $entity->getProperties();
         if (empty($properties)){
             return false;
