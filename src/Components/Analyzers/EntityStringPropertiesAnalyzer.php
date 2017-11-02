@@ -2,7 +2,7 @@
 
 namespace UPSS\Components\Analyzers;
 
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 
 class EntityStringPropertiesAnalyzer implements IAnalyzer
 {
@@ -14,7 +14,7 @@ class EntityStringPropertiesAnalyzer implements IAnalyzer
     private const BEGINNING_PATTERN = "@\b{match}[\w-]+\b@u";
 
 
-    public function analyze(IEntityCollection $data) : array
+    public function analyze(ICollection $data) : array
     {
         $this->entities = $data->getEntities();
         $this->preferences = $data->getPreferences();

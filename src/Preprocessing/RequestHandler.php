@@ -3,10 +3,9 @@
 namespace UPSS\Preprocessing;
 
 use UPSS\Config;
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 use UPSS\Preprocessing\EntityFactory\EntityFactory;
 use UPSS\Preprocessing\TypeDetector\ITypeDetector;
-
 
 class RequestHandler
 {
@@ -23,34 +22,39 @@ class RequestHandler
         self::$typeDetector = $detector;
     }
 
-    public static function createFromGlobals() : IEntityCollection
+    public static function createFromGlobals(): ICollection
     {
-	      self::$instance = new self();
-	      $handler = self::$instance;
-	      $request = &$GLOBALS['_' . $_SERVER['REQUEST_METHOD']];
-	      if (isset($request['data'])){
-	          $handler->data = $request['data'];
+        self::$instance = new self();
+        $handler = self::$instance;
+        $request = &$GLOBALS['_' . $_SERVER['REQUEST_METHOD']];
 
-	          if (isset($request['format'])){
-	              $handler->format = $request['format'];
+        $handler->factory = new EntityFactory();
+        $validatorName = Config::getInstance()->get('validator');
+        $handler->factory->setValidator(new $validatorName);
+
+        //if system got preferences.
+        //For now it's always json.
+        if (isset($request['preferences']) && !empty($request['preferences'])){
+            return $handler->factory->createCollection($request['preferences'], 'json');
+
+        //or it's got data
+        } elseif (isset($request['data']) && !empty($request['data'])) {
+            if (isset($request['format'])) {
+                $handler->format = $request['format'];
             } else {
                 $handler->detectFormat();
             }
 
-            $handler->factory = new EntityFactory();
-	          $validatorName = Config::getInstance()->get('validator');
-	          $handler->factory->setValidator(new $validatorName);
-
-	          return $handler->factory->createEntityCollection($handler->data, $handler->format);
+            return $handler->factory->createCollection($request['data'], $handler->format);
 
         } else {
-	          throw new \Exception(self::NO_DATA);
+            throw new \Exception(self::NO_DATA);
         }
-	  }
+    }
 
-	  protected function detectFormat()
-	  {
-	      $this->format = self::$typeDetector->detectType($this->data);
-	  }
+    protected function detectFormat()
+    {
+        $this->format = self::$typeDetector->detectType($this->data);
+    }
 
 }

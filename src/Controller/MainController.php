@@ -4,7 +4,7 @@ namespace UPSS\Controller;
 
 use UPSS\Components\Analyzers\IAnalyzer;
 use UPSS\Components\Modifiers\IModifier;
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 use UPSS\Storage\IStorage;
 
 class MainController
@@ -20,7 +20,7 @@ class MainController
     private $collectionHashSum;
 
     public function __construct(
-        IEntityCollection $data,
+        ICollection $data,
         array $components,
         IStorage $storage = null
     ) {
@@ -32,11 +32,11 @@ class MainController
         }
     }
 
-    public function handle() : IEntityCollection
+    public function handle() : ICollection
     {
         if ($this->lookInStorage('result')){
            $result = $this->getFromStorage('result');
-           if ($result instanceof IEntityCollection){
+           if ($result instanceof ICollection){
                return $result;
            }
         }

@@ -3,7 +3,7 @@
 namespace UPSS\Postprocessing;
 
 use UPSS\Postprocessing\ExceptionProcessors\IExceptionProcessor;
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 
 class ResponseHandler implements IExceptionProcessor
 {
@@ -28,7 +28,7 @@ class ResponseHandler implements IExceptionProcessor
         return json_encode($this->data);
     }
 
-    public function setData(IEntityCollection $data)
+    public function setData(ICollection $data)
     {
         $this->data = $data->getAsArray();
     }

@@ -2,14 +2,14 @@
 
 namespace UPSS\Components\Modifiers;
 
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 
 class EntityWeightRanker implements IModifier
 {
     private $weights;
     private $collection;
 
-    public function modify(IEntityCollection $data, array &$analytics = [])
+    public function modify(ICollection $data, array &$analytics = [])
     {
         if (!empty($analytics)){
             $this->collection = $data;

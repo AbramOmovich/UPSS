@@ -3,8 +3,8 @@
 namespace UPSS\Preprocessing\EntityFactory;
 
 use UPSS\Preprocessing\Entities\IEntity;
-use UPSS\Preprocessing\EntityCollection\EntityCollection;
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\collection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 use UPSS\Preprocessing\EntityFactory\Factories\IEntityFactory;
 use UPSS\Preprocessing\Validator\IEntityValidator;
 use UPSS\Preprocessing\Validator\ValidationException;
@@ -20,10 +20,10 @@ class EntityFactory
 
     private $validator;
 
-    public function createEntityCollection(
+    public function createCollection(
         $data,
         string $type
-    ): IEntityCollection {
+    ): ICollection {
         $this->data = $data;
         $this->type = $type;
 
@@ -32,7 +32,7 @@ class EntityFactory
         $entities = $this->createEntities();
         $preferences = $this->createPreferences();
 
-        $collection = new EntityCollection();
+        $collection = new Collection();
         $collection->setPreferences($preferences);
         foreach ($entities as $entity) {
             $collection->addToCollection($entity);

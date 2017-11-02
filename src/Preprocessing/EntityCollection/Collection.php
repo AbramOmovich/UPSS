@@ -4,24 +4,24 @@ namespace UPSS\Preprocessing\EntityCollection;
 
 use UPSS\Preprocessing\Entities\IEntity;
 
-class EntityCollection implements IEntityCollection
+class Collection implements ICollection
 {
     private $entities = [];
-    private $preferences;
+    private $preferences = [];
 
-    public function getEntities() : array
+    public function getEntities(): array
     {
         return $this->entities;
     }
 
-    public function getPreferences()
+    public function getPreferences(): array
     {
         return $this->preferences;
     }
 
     public function addToCollection(IEntity $entity)
     {
-        $this->entities []= $entity;
+        $this->entities [] = $entity;
     }
 
     public function setPreferences(array $preferences)
@@ -31,7 +31,7 @@ class EntityCollection implements IEntityCollection
 
     public function removeFromCollection($index = '')
     {
-        if (isset($this->entities[$index])){
+        if (isset($this->entities[$index])) {
             unset($this->entities[$index]);
         } else {
             throw new \Exception("Offset {$index} not exists in collection");
@@ -39,12 +39,12 @@ class EntityCollection implements IEntityCollection
     }
 
 
-    public function getAsArray() : array
+    public function getAsArray(): array
     {
         $output = [];
         $output['preferences'] = $this->preferences;
         $output['objects'] = [];
-        foreach ($this->entities as $entity){
+        foreach ($this->entities as $entity) {
             $output['objects'][] = $entity->getProperties();
         }
 
@@ -53,6 +53,16 @@ class EntityCollection implements IEntityCollection
 
     public function clearEntities()
     {
-       unset($this->entities);
+        $this->entities = [];
+    }
+
+    public function hasEntities(): bool
+    {
+        return (isset($this->entities) && !empty($this->entities));
+    }
+
+    public function hasPreferences(): bool
+    {
+        return (isset($this->preferences) && !empty($this->preferences));
     }
 }

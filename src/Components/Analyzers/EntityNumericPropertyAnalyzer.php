@@ -2,7 +2,7 @@
 
 namespace UPSS\Components\Analyzers;
 
-use UPSS\Preprocessing\EntityCollection\IEntityCollection;
+use UPSS\Preprocessing\EntityCollection\ICollection;
 
 class EntityNumericPropertyAnalyzer implements IAnalyzer
 {
@@ -18,7 +18,7 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
 
     private $extrema;
 
-    public function analyze(IEntityCollection $data): array
+    public function analyze(ICollection $data): array
     {
         $this->preferences = $data->getPreferences();
         $this->entities = $data->getEntities();
