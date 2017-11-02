@@ -12,7 +12,6 @@ class HttpEntityFactory implements IEntityFactory
     private $entities = [];
     private $preferences = [];
 
-
     private $data;
 
     private $length;
@@ -37,7 +36,7 @@ class HttpEntityFactory implements IEntityFactory
 
                 $this->offset++;
 
-                $this->entities []= $entity;
+                $this->entities [] = $entity;
 
                 return $entity;
             }
@@ -48,7 +47,7 @@ class HttpEntityFactory implements IEntityFactory
 
     public function setInputData($data)
     {
-        if (is_array($data)){
+        if (is_array($data)) {
             $this->offset = 0;
             $this->data = array_values($data);
             $this->length = count($this->data);
@@ -56,9 +55,9 @@ class HttpEntityFactory implements IEntityFactory
     }
 
 
-    public function createPreferences() : array
+    public function createPreferences(): array
     {
-        foreach ($this->entities as $entity){
+        foreach ($this->entities as $entity) {
             $properties = $entity->getProperties();
             $this->findProperties($properties);
         }
@@ -68,23 +67,24 @@ class HttpEntityFactory implements IEntityFactory
 
     public function findProperties($properties)
     {
-        foreach ($properties as $property => $value){
-            if (!isset($this->preferences[$property])){
-                if (is_numeric($value)){
+        foreach ($properties as $property => $value) {
+            if (!isset($this->preferences[$property])) {
+                if (is_numeric($value)) {
                     $this->preferences[$property] = [
                         'direction' => 1,
                         'weight' => 0.5
                     ];
-                }elseif (is_array($value)){
+                } elseif (is_array($value)) {
                     $this->findProperties($value);
                 }
 
-                if (is_string($value)){
+                if (is_string($value)) {
                     $this->preferences[$property]['match'] = '';
                 }
             }
         }
     }
+
     public function hasMoreObjects(): bool
     {
         return ($this->offset < $this->length);

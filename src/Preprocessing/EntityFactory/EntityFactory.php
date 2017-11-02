@@ -22,17 +22,19 @@ class EntityFactory
 
     public function createCollection(
         $data,
-        string $type
+        string $format,
+        string $collectionType = 'preferences'
     ): ICollection {
         $this->data = $data;
-        $this->type = $type;
+        $this->type = $format;
 
         $this->resolveConcreteFactory();
         $this->concreteFactory->setInputData($this->data);
+        $collection = new Collection();
+
         $entities = $this->createEntities();
         $preferences = $this->createPreferences();
 
-        $collection = new Collection();
         $collection->setPreferences($preferences);
         foreach ($entities as $entity) {
             $collection->addToCollection($entity);

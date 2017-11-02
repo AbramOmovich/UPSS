@@ -35,7 +35,7 @@ class RequestHandler
         //if system got preferences.
         //For now it's always json.
         if (isset($request['preferences']) && !empty($request['preferences'])){
-            return $handler->factory->createCollection($request['preferences'], 'json');
+            return $handler->factory->createCollection($request['preferences'], 'json', 'entities');
 
         //or it's got data
         } elseif (isset($request['data']) && !empty($request['data'])) {
