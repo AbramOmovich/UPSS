@@ -3,6 +3,7 @@
 namespace UPSS\Components\Analyzers;
 
 use UPSS\Preprocessing\EntityCollection\ICollection;
+use UPSS\Preprocessing\EntityCollection\IEntityCollection;
 
 interface IAnalyzer
 {
@@ -16,8 +17,9 @@ interface IAnalyzer
      * If some entities do not have relative index in weight array, it means
      * that they are not preferable.
      *
-     * @param \UPSS\Preprocessing\EntityCollection\ICollection $data
+     * @param \UPSS\Preprocessing\EntityCollection\IEntityCollection $data
+     *
      * @return array
      */
-    public function analyze(ICollection $data): array;
+    public function analyze(IEntityCollection $data): array;
 }

@@ -7,8 +7,10 @@ use UPSS\Components\Modifiers\IModifier;
 use UPSS\Preprocessing\EntityCollection\ICollection;
 use UPSS\Storage\IStorage;
 
-class MainController
+class MainController implements IController
 {
+    private const ANALYZED_COLLECTIONS_DIR = 'analyzed_collections';
+
     private $components;
 
     private $storage;
@@ -19,12 +21,12 @@ class MainController
 
     private $collectionHashSum;
 
-    public function __construct(
-        ICollection $data,
+    public function initialize(
+        ICollection $collection,
         array $components,
         IStorage $storage = null
     ) {
-        $this->collection = $data;
+        $this->collection = $collection;
         $this->components = $components;
         if (!is_null($storage)) {
             $this->storage = $storage;
@@ -34,36 +36,51 @@ class MainController
 
     public function handle() : ICollection
     {
-        if ($this->lookInStorage('result')){
-           $result = $this->getFromStorage('result');
-           if ($result instanceof ICollection){
-               return $result;
-           }
-        }
+        //if we've got collection with preferences and entities
+        if ($this->collection->hasEntities() && $this->collection->hasPreferences()){
 
-        if ($this->lookInStorage('analysis')){
-            $result = $this->getFromStorage('analysis');
-            if ($result){
-                $this->analysisResult = $result;
+            //if it's already modified with this preferences
+            if ($this->lookInStorage('result')){
+                $result = $this->getFromStorage('result');
+                if ($result instanceof ICollection){
+                    return $result;
+                }
             }
+
+            //or it has analysis result with this preferences
+            if ($this->lookInStorage('analysis')){
+                $result = $this->getFromStorage('analysis');
+                if ($result){
+                    $this->analysisResult = $result;
+                }
+
+            //other way begin analyzing
+            } else {
+                $this->sendToAnalyzers();
+                $this->saveInStorage('analysis', $this->analysisResult);
+            }
+
+
+            $this->sendToModifiers();
+
+            //saving modified collection
+            $this->saveInStorage('result', $this->collection);
+
+            return $this->collection;
+
+        //if we've got collection that has only preferences
+        } elseif($this->collection->hasPreferences()){
+            return $this->collection;
         } else {
-            $this->sendToAnalyzers();
-            $this->saveInStorage('analysis', $this->analysisResult);
+            throw new \Exception("Invalid collection provided");
         }
-
-
-        $this->sendToModifiers();
-
-        $this->saveInStorage('result', $this->collection);
-
-        return $this->collection;
     }
 
     private function lookInStorage(string $type) : bool
     {
         if (isset($this->storage)){
             $result = $this->storage->select($type)
-                ->where('collection', $this->collectionHashSum)
+                ->where(self::ANALYZED_COLLECTIONS_DIR, $this->collectionHashSum)
                 ->execute();
             if ($result) {
                 return true;
@@ -79,7 +96,7 @@ class MainController
     private function getFromStorage(string $type)
     {
         $result = $this->storage->select($type)
-            ->where('collection', $this->collectionHashSum)
+            ->where(self::ANALYZED_COLLECTIONS_DIR, $this->collectionHashSum)
             ->get();
 
         $result = unserialize($result);
@@ -91,7 +108,7 @@ class MainController
     {
         if (isset($this->storage)){
             $this->storage->insert($type, serialize($data))
-                ->where('collection', $this->collectionHashSum)
+                ->where(self::ANALYZED_COLLECTIONS_DIR, $this->collectionHashSum)
                 ->execute();
         }
     }

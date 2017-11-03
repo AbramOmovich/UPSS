@@ -4,11 +4,11 @@ namespace UPSS\Postprocessing;
 
 use UPSS\Postprocessing\ExceptionProcessors\IExceptionProcessor;
 
-class ExceptionHandler
+class ExceptionHandler  implements IExceptionHandler
 {
 	  private $processor;
 
-	  public function __construct(IExceptionProcessor $processor)
+	  public function setProcessor(IExceptionProcessor $processor)
       {
           $this->processor = $processor;
           set_exception_handler([$this, 'handle']);

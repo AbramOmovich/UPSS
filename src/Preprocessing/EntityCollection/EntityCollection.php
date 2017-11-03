@@ -4,7 +4,7 @@ namespace UPSS\Preprocessing\EntityCollection;
 
 use UPSS\Preprocessing\Entities\IEntity;
 
-class Collection implements ICollection
+class EntityCollection implements IEntityCollection, IPreferenceCollection
 {
     private $entities = [];
     private $preferences = [];
@@ -16,10 +16,10 @@ class Collection implements ICollection
 
     public function getPreferences(): array
     {
-        return $this->preferences;
+        return $this->preferences['preferences'];
     }
 
-    public function addToCollection(IEntity $entity)
+    public function addEntity(IEntity $entity)
     {
         $this->entities [] = $entity;
     }
@@ -29,7 +29,7 @@ class Collection implements ICollection
         $this->preferences = $preferences;
     }
 
-    public function removeFromCollection($index = '')
+    public function removeEntityFromCollection($index = '')
     {
         if (isset($this->entities[$index])) {
             unset($this->entities[$index]);
@@ -64,5 +64,15 @@ class Collection implements ICollection
     public function hasPreferences(): bool
     {
         return (isset($this->preferences) && !empty($this->preferences));
+    }
+
+    public function setEntitiesId(string $id)
+    {
+        return $this->preferences['entities_id'] = $id;
+    }
+
+    public function getEntitiesId(): string
+    {
+        return $this->preferences['entities_id'];
     }
 }

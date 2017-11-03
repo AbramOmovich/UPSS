@@ -4,9 +4,9 @@ namespace UPSS\Preprocessing\Validator;
 
 use UPSS\Preprocessing\Entities\IEntity;
 
-class EntityPropertiesValidator implements IEntityValidator
+class CollectionValidator implements IEntityValidator, IPreferencesValidator
 {
-    public function validate(IEntity $entity): bool
+    public function validateEntity(IEntity $entity): bool
     {
         //TODO: remake validation
         $properties = $entity->getProperties();
@@ -34,6 +34,31 @@ class EntityPropertiesValidator implements IEntityValidator
         }
         elseif (!is_scalar($property)){
             return false;
+        }
+
+        return true;
+    }
+
+    public function validatePreferences(array $preferences): bool
+    {
+        if (empty($preferences)){
+            return false;
+        }
+
+        if (!isset($preferences['entities_id'])){
+            return false;
+        }
+
+        if (!isset($preferences['preferences']) || empty($preferences['preferences'])){
+            return false;
+        }
+
+        foreach ($preferences['preferences'] as $preference => $settings){
+            if (!isset($settings['weight']) &&
+                (!isset($settings['direction']) || !isset($settings['match']))
+            ){
+                return false;
+            }
         }
 
         return true;

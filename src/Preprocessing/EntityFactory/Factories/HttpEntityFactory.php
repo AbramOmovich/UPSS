@@ -47,11 +47,11 @@ class HttpEntityFactory implements IEntityFactory
 
     public function setInputData($data)
     {
-        if (is_array($data)) {
+        if (is_array($data) && !empty($data)) {
             $this->offset = 0;
             $this->data = array_values($data);
             $this->length = count($this->data);
-        } else throw new \Exception("Un appropriate data provided");
+        } else throw new \Exception("Unappropriated data provided");
     }
 
 

@@ -2,12 +2,12 @@
 
 namespace UPSS\Preprocessing;
 
-use UPSS\Config;
+use UPSS\Application;
 use UPSS\Preprocessing\EntityCollection\ICollection;
 use UPSS\Preprocessing\EntityFactory\EntityFactory;
 use UPSS\Preprocessing\TypeDetector\ITypeDetector;
 
-class RequestHandler
+class RequestHandler implements IRequestHandler
 {
     private const NO_DATA = "No data provided";
 
@@ -29,23 +29,23 @@ class RequestHandler
         $request = &$GLOBALS['_' . $_SERVER['REQUEST_METHOD']];
 
         $handler->factory = new EntityFactory();
-        $validatorName = Config::getInstance()->get('validator');
+        $validatorName = Application::getInstance()->getConfig('validator');
         $handler->factory->setValidator(new $validatorName);
 
         //if system got preferences.
-        //For now it's always json.
         if (isset($request['preferences']) && !empty($request['preferences'])){
-            return $handler->factory->createCollection($request['preferences'], 'json', 'entities');
+            return $handler->factory->createCollection($request['preferences'], 'json', EntityFactory::ENTITY_COLLECTION);
 
         //or it's got data
         } elseif (isset($request['data']) && !empty($request['data'])) {
+            $handler->data = $request['data'];
             if (isset($request['format'])) {
                 $handler->format = $request['format'];
             } else {
                 $handler->detectFormat();
             }
 
-            return $handler->factory->createCollection($request['data'], $handler->format);
+            return $handler->factory->createCollection($handler->data, $handler->format);
 
         } else {
             throw new \Exception(self::NO_DATA);
