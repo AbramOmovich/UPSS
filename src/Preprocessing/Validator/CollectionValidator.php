@@ -32,7 +32,7 @@ class CollectionValidator implements IEntityValidator, IPreferencesValidator
                 }
             }
         }
-        elseif (!is_scalar($property)){
+        elseif (!is_scalar($property) && !is_null($property)){
             return false;
         }
 

@@ -1,5 +1,4 @@
-{
-  "objects" : [
+[
     {
       "speed" : 220,
       "size"  : 10000,
@@ -35,15 +34,4 @@
       "name"  : "car5",
       "weight": 784
     }
-  ],
-  "preferences" : {
-    "speed": {
-      "direction": 1,
-      "weight": 0.9
-    },
-    "size": {
-      "direction": 1,
-      "weight": 0.1
-    }
-  }
-}
+]

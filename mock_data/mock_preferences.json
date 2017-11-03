@@ -1,1 +1,5 @@
-{"entities_id":"2f7fa7cbf001e154a364a925a55d4e0395f5fd11","preferences":{"speed":{"direction":1,"weight":0.9},"size":{"direction":1,"weight":0.1}}}
+{"entities_id":"442c7e465264805758886f4293b8dc8a17c4663b",
+  "preferences":{
+    "course":{"weight":0.8,"direction":0}
+  }
+}

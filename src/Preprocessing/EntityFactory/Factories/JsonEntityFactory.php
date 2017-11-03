@@ -8,22 +8,27 @@ use UPSS\Preprocessing\EntityFactory\EntityCreationException;
 
 class JsonEntityFactory implements IEntityFactory
 {
+    use Helpers\PreferenceCreator;
+
     private $data;
     private $offset;
+    private $entities = [];
+    private $amount;
 
     public function createEntity() : IEntity
     {
         if ($this->hasObjects() && isset($this->offset)){
-            if (isset($this->data['objects'][$this->offset])) {
+            if (isset($this->data[$this->offset])) {
                 $entity = new JsonEntity();
 
                 $reflectionClass = new \ReflectionClass(JsonEntity::class);
                 $reflectionProperty = $reflectionClass->getProperty('properties');
                 $reflectionProperty->setAccessible(true);
-                $reflectionProperty->setValue($entity, $this->data['objects'][$this->offset]);
+                $reflectionProperty->setValue($entity, $this->data[$this->offset]);
+
+                $this->entities[$this->offset] = $entity;
 
                 $this->offset++;
-
                 return $entity;
             }
         }
@@ -32,26 +37,24 @@ class JsonEntityFactory implements IEntityFactory
 
     public function setInputData($data)
     {
-        $this->data = json_decode($data, true);
-        $this->offset = 0;
-    }
-
-    public function createPreferences() : array
-    {
-        if (isset($this->data['preferences']) && is_array($this->data['preferences'])){
-            return $this->data['preferences'];
-        }
-
-        throw new EntityCreationException("Unable to create preferences");
+        $data = json_decode($data, true);
+        if (is_array($data) && !empty($data)){
+            $this->data = array_values($data);
+            $this->offset = 0;
+            unset($this->amount);
+        } else throw new \Exception("Unappropriated json data provided");
     }
 
     public function hasMoreObjects() : bool
     {
-        return ($this->offset < count($this->data['objects']));
+        if (!isset($this->amount)){
+            $this->amount = count($this->data);
+        }
+        return ($this->offset < $this->amount);
     }
 
     public function hasObjects() : bool
     {
-        return (isset($this->data['objects']));
+        return (isset($this->data) && !empty($this->data));
     }
 }

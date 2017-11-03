@@ -8,9 +8,7 @@ use UPSS\Preprocessing\Entities\IEntity;
 
 class HttpEntityFactory implements IEntityFactory
 {
-
-    private $entities = [];
-    private $preferences = [];
+    use Helpers\PreferenceCreator;
 
     private $data;
 
@@ -52,37 +50,6 @@ class HttpEntityFactory implements IEntityFactory
             $this->data = array_values($data);
             $this->length = count($this->data);
         } else throw new \Exception("Unappropriated data provided");
-    }
-
-
-    public function createPreferences(): array
-    {
-        foreach ($this->entities as $entity) {
-            $properties = $entity->getProperties();
-            $this->findProperties($properties);
-        }
-
-        return $this->preferences;
-    }
-
-    public function findProperties($properties)
-    {
-        foreach ($properties as $property => $value) {
-            if (!isset($this->preferences[$property])) {
-                if (is_numeric($value)) {
-                    $this->preferences[$property] = [
-                        'direction' => 1,
-                        'weight' => 0.5
-                    ];
-                } elseif (is_array($value)) {
-                    $this->findProperties($value);
-                }
-
-                if (is_string($value)) {
-                    $this->preferences[$property]['match'] = '';
-                }
-            }
-        }
     }
 
     public function hasMoreObjects(): bool

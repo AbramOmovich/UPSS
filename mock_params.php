@@ -8,9 +8,6 @@ $params = [];
 //PHP Array
 //$params = include 'mock_data/mock_.php';
 
-//Generated preferences
-//$params['preferences'] = file_get_contents('mock_data/mock_preferences.json');
-
 //XML data
 /*$params = [
   'data' => file_get_contents( 'mock_data/mock.xml'),
@@ -19,10 +16,19 @@ $params = [];
 
 
 //JSON data
-$params = [
+/*$params = [
   'data' => file_get_contents( 'mock_data/mock.json'),
   'format' => 'json'
+];*/
+
+//another JSON
+$params = [
+    'data' => file_get_contents( 'https://students.bsuir.by/api/v1/groups'),
+    'format' => 'json'
 ];
+
+//Generated preferences
+$params['preferences'] = file_get_contents('mock_data/mock_preferences.json');
 
 
 if (!isset($_SERVER['REQUEST_METHOD'])) {
