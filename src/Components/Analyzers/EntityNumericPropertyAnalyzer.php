@@ -8,6 +8,7 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
 {
 
     private const NESTING_COEFFICIENT = 0.8;
+    private const SMALLEST_WEIGHT = 0.0000001;
 
     private $weights = [];
 
@@ -84,6 +85,12 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
         foreach ($this->entities as $entity) {
             $properties = $entity->getProperties();
             $this->getExtrema($properties);
+        }
+
+        foreach ($this->extrema as $property => $extremum){
+            if ($extremum == 0){
+                $this->extrema[$property] = self::SMALLEST_WEIGHT;
+            }
         }
     }
 

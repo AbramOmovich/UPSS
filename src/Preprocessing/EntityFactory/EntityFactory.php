@@ -2,7 +2,6 @@
 
 namespace UPSS\Preprocessing\EntityFactory;
 
-use UPSS\Application;
 use UPSS\Preprocessing\Entities\IEntity;
 use UPSS\Preprocessing\EntityCollection\EntityCollection;
 use UPSS\Preprocessing\EntityCollection\ICollection;
@@ -13,6 +12,7 @@ use UPSS\Preprocessing\EntityFactory\Factories\IEntityFactory;
 use UPSS\Preprocessing\Validator\IEntityValidator;
 use UPSS\Preprocessing\Validator\IPreferencesValidator;
 use UPSS\Preprocessing\Validator\ValidationException;
+use UPSS\Storage\IStorage;
 
 class EntityFactory
 {
@@ -32,6 +32,8 @@ class EntityFactory
     private $collection;
 
     private $validator;
+
+    private $storage;
 
     public function createCollection(
         $data,
@@ -58,6 +60,11 @@ class EntityFactory
     }
 
 
+    public function setStorage(IStorage $storage)
+    {
+        $this->storage = $storage;
+    }
+
     public function setValidator(IEntityValidator $validator)
     {
         $this->validator = $validator;
@@ -74,8 +81,7 @@ class EntityFactory
         $entityCollectionId = sha1($serializedEntities);
 
         //check if preferences already generated
-        $storage = Application::getStorage();
-        $result = $storage->select('preferences')
+        $result = $this->storage->select('preferences')
             ->where(self::PREPROCESSED_COLLECTION_DIR, $entityCollectionId)
             ->get();
         if ($result !== false){
@@ -91,7 +97,7 @@ class EntityFactory
             //add unique entity collection identifier
             $preferenceCollection->setEntitiesId($entityCollectionId);
 
-            $storage->insert('preferences', serialize($preferenceCollection))
+            $this->storage->insert('preferences', serialize($preferenceCollection))
                 ->where(self::PREPROCESSED_COLLECTION_DIR, $entityCollectionId)
                 ->execute();
         } elseif ($result instanceof IPreferenceCollection){
@@ -100,7 +106,7 @@ class EntityFactory
 
 
         //check if entity collection already exists in storage
-        $result = $storage->select('entities')
+        $result = $this->storage->select('entities')
             ->where(self::PREPROCESSED_COLLECTION_DIR, $entityCollectionId)
             ->get();
         if ($result !== false){
@@ -115,7 +121,7 @@ class EntityFactory
                 $entityCollection->addEntity($entity);
             }
 
-            $storage->insert('entities', serialize($entityCollection))
+            $this->storage->insert('entities', serialize($entityCollection))
                 ->where(self::PREPROCESSED_COLLECTION_DIR, $entityCollectionId)
                 ->execute();
         }
@@ -142,8 +148,7 @@ class EntityFactory
         }
 
         //loading entity collection relative to this preferences
-        $storage = Application::getStorage();
-        $result = $storage->select('entities')
+        $result = $this->storage->select('entities')
             ->where(self::PREPROCESSED_COLLECTION_DIR, $preferences['entities_id'])
             ->get();
         if ($result) {

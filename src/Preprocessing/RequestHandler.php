@@ -31,6 +31,7 @@ class RequestHandler implements IRequestHandler
         $handler->factory = new EntityFactory();
         $validatorName = Application::getInstance()->getConfig('validator');
         $handler->factory->setValidator(new $validatorName);
+        $handler->factory->setStorage(Application::getStorage());
 
         //if system got preferences.
         if (isset($request['preferences']) && !empty($request['preferences'])){

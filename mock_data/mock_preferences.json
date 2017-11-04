@@ -1,5 +1,9 @@
-{"entities_id":"442c7e465264805758886f4293b8dc8a17c4663b",
-  "preferences":{
-    "course":{"weight":0.8,"direction":0}
+{
+  "entities_id":"442c7e465264805758886f4293b8dc8a17c4663b",
+  "preferences":
+  {
+    "name":{"weight":0.8,"direction":1,"match":"420"},
+    "facultyId":{"weight":0.03,"direction":1},
+    "course":{"weight":1,"direction":0}
   }
 }

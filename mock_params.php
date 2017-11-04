@@ -22,10 +22,12 @@ $params = [];
 ];*/
 
 //another JSON
-$params = [
+
+/*$params = [
     'data' => file_get_contents( 'https://students.bsuir.by/api/v1/groups'),
     'format' => 'json'
-];
+];*/
+
 
 //Generated preferences
 $params['preferences'] = file_get_contents('mock_data/mock_preferences.json');
