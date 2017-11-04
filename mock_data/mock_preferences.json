@@ -4,6 +4,6 @@
   {
     "name":{"weight":0.8,"direction":1,"match":"420"},
     "facultyId":{"weight":0.03,"direction":1},
-    "course":{"weight":1,"direction":0}
+    "course":{"weight":1,"direction":1}
   }
 }

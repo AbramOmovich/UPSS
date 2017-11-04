@@ -64,6 +64,9 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
                     if ($this->preferences[$propertyName]['direction'] == 1) {
                         $propertyWeight += $properties[$propertyName] / $this->extrema[$propertyName];
                     } elseif ($this->preferences[$propertyName]['direction'] == 0) {
+                        if ($properties[$propertyName] == 0 ){
+                            $properties[$propertyName] = self::SMALLEST_WEIGHT;
+                        }
                         $propertyWeight += $this->extrema[$propertyName] / $properties[$propertyName];
                     }
 
