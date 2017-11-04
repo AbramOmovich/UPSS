@@ -4,26 +4,36 @@ namespace UPSS\Preprocessing\EntityFactory\Factories;
 
 use UPSS\Preprocessing\Entities\IEntity;
 use UPSS\Preprocessing\Entities\XmlEntity;
+use UPSS\Preprocessing\EntityFactory\EntityCreationException;
+use UPSS\Preprocessing\EntityFactory\Factories\Helpers\PreferenceCreator;
 
 class XmlEntityFactory implements IEntityFactory
 {
+
+    use PreferenceCreator;
+
     private const XML_INVALID = "XML data supplied is invalid";
 
     private $data;
-    private $objects;
-    private $preferences;
+
+    private $saxObjects = [];
+
     private $offset;
 
-    public function createEntity() : IEntity
+    private $amount;
+
+    public function createEntity(): IEntity
     {
         $entity = new XmlEntity();
-        if ((isset($this->objects[$this->offset])) && ($this->objects[$this->offset] instanceof \SimpleXMLElement)){
+        if ((isset($this->saxObjects[$this->offset])) && ($this->saxObjects[$this->offset] instanceof \SimpleXMLElement)) {
             $reflectionClass = new \ReflectionClass(XmlEntity::class);
             $reflectionProperty = $reflectionClass->getProperty('node');
             $reflectionProperty->setAccessible(true);
-            $reflectionProperty->setValue($entity, $this->objects[$this->offset]);
+            $reflectionProperty->setValue($entity,
+                $this->saxObjects[$this->offset]);
 
             $this->offset++;
+            $this->entities []= $entity;
 
             return $entity;
         }
@@ -33,42 +43,27 @@ class XmlEntityFactory implements IEntityFactory
     public function setInputData($data)
     {
         $this->data = simplexml_load_string($data);
-        if ($this->hasObjects() && $this->hasPreferences()){
-            foreach ($this->data->objects->children() as $object){
-                $this->objects []= $object;
+        if ($this->hasObjects()) {
+            foreach ($this->data->children() as $object) {
+                $this->saxObjects [] = $object;
             }
-
-            $this->preferences = $this->data->preferences->children();
         } else {
-            throw new \Exception(self::XML_INVALID);
+            throw new EntityCreationException(self::XML_INVALID);
         }
 
         $this->offset = 0;
     }
 
-    public function createPreferences() : array
+    public function hasMoreObjects(): bool
     {
-        $preferences = [];
-        foreach ($this->preferences as $preference){
-            $preferences [$preference->getName()]['direction'] = (string) $preference->direction;
-            $preferences [$preference->getName()]['weight'] = (string) $preference->weight;
+        return (count($this->data) > $this->offset);
+    }
+
+    public function hasObjects(): bool
+    {
+        if (!isset($this->amount)){
+            $this->amount = count($this->data);
         }
-
-        return $preferences;
-    }
-
-    public function hasMoreObjects() : bool
-    {
-        return (count($this->objects) > $this->offset);
-    }
-
-    public function hasObjects() : bool
-    {
-        return (isset($this->data->objects) && (count($this->data->objects) > 0));
-    }
-
-    private function hasPreferences() : bool
-    {
-        return (isset($this->data->preferences) && ($this->data->preferences->count() > 0));
+        return (isset($this->data) && ($this->amount > 0));
     }
 }

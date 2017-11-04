@@ -14,6 +14,11 @@ $params = [];
   'format' => 'xml'
 ];*/
 
+//another XML data
+$params = [
+    'data' => file_get_contents( 'http://www.nbrb.by/Services/XmlExRates.aspx'),
+    'format' => 'xml'
+];
 
 //JSON data
 /*$params = [

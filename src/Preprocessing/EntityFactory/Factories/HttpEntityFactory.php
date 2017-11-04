@@ -49,7 +49,9 @@ class HttpEntityFactory implements IEntityFactory
             $this->offset = 0;
             $this->data = array_values($data);
             $this->length = count($this->data);
-        } else throw new \Exception("Unappropriated data provided");
+        } else {
+            throw new \Exception("Unappropriated data provided");
+        }
     }
 
     public function hasMoreObjects(): bool

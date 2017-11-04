@@ -4,7 +4,9 @@ namespace UPSS\Preprocessing\EntityFactory\Factories\Helpers;
 
 trait PreferenceCreator
 {
+
     private $entities = [];
+
     private $preferences = [];
 
     public function createPreferences(): array
@@ -17,7 +19,7 @@ trait PreferenceCreator
         return $this->preferences;
     }
 
-    public function findProperties($properties)
+    private function findProperties($properties)
     {
         foreach ($properties as $property => $value) {
             if (!isset($this->preferences[$property])) {

@@ -6,13 +6,13 @@ use UPSS\Preprocessing\Entities\IEntity;
 
 interface IEntityFactory
 {
-	public function createEntity() : IEntity;
+    public function createEntity(): IEntity;
 
-	public function setInputData($data);
+    public function setInputData($data);
 
-	public function createPreferences() : array ;
+    public function createPreferences(): array;
 
-	public function hasMoreObjects() : bool ;
+    public function hasMoreObjects(): bool;
 
-	public function hasObjects() : bool;
+    public function hasObjects(): bool;
 }
