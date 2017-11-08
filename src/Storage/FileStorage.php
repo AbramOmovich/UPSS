@@ -17,11 +17,14 @@ class FileStorage implements IStorage
     public function __construct(array $settings)
     {
         if (isset($settings['folder'])){
-            if (file_exists($settings['folder']) && is_dir($settings['folder']))
             $this->storageDir = $settings ['folder'];
-        } else {
-            throw new StorageException(self::BAD_DIR);
-        }
+            if (!file_exists($settings['folder'])){
+                mkdir($settings['folder']);
+            }
+
+            }if(!file_exists($settings['folder'])){
+                throw new StorageException(self::BAD_DIR);
+            }
     }
 
     public function select(string $type) : IStorage
