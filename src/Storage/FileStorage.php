@@ -22,9 +22,10 @@ class FileStorage implements IStorage
                 mkdir($settings['folder']);
             }
 
-            }if(!file_exists($settings['folder'])){
+            if(!file_exists($settings['folder'])){
                 throw new StorageException(self::BAD_DIR);
             }
+        }
     }
 
     public function select(string $type) : IStorage
