@@ -35,7 +35,7 @@ $params = [
 
 
 //Generated preferences
-$params['preferences'] = file_get_contents('mock_data/mock_preferences.json');
+//$params['preferences'] = file_get_contents('mock_data/mock_preferences.json');
 
 
 if (!isset($_SERVER['REQUEST_METHOD'])) {

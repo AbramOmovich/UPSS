@@ -41,6 +41,11 @@ class XmlEntity implements IEntity
     private function initProperties()
     {
         $properties = [];
+        if ($this->node->attributes()->count() > 0){
+            foreach ($this->node->attributes() as $attribute){
+                $properties[$attribute->getName()] = (string) $attribute;
+            }
+        }
         foreach ($this->node->children() as $child){
             $count = $child->count();
             if ($count == 0){
@@ -56,12 +61,18 @@ class XmlEntity implements IEntity
     private function getNestedProperties(\SimpleXMLElement $element) : array
     {
         $properties = [];
+        if ($element->attributes()->count() > 0){
+            foreach ($element->attributes() as $attribute){
+                $properties [$attribute->getName()] = (string) $attribute;
+            }
+        }
+
         foreach ($element->children() as $child)
         {
             if ($child->count() > 0){
                 $properties[$child->getName()] = $this->getNestedProperties($child);
             } else {
-              $properties[$child->getName()] = (string) $child;
+                $properties[$child->getName()] = (string) $child;
             }
         }
 
