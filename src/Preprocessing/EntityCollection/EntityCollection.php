@@ -44,12 +44,11 @@ class EntityCollection implements IEntityCollection
     public function getAsArray(): array
     {
         $output = [];
-        $output['preferences'] = $this->preferences;
         $output['objects'] = [];
         $output['total'] = count($this->entities);
         $output['per_page'] = Application::getInstance()->getConfig('per_page');
 
-        if (isset($this->preferences['page'])){
+        if (!isset($this->preferences['page'])){
             $this->preferences['page'] = $this->page;
         }
 
@@ -64,6 +63,7 @@ class EntityCollection implements IEntityCollection
             }
         }
 
+        $output['preferences'] = $this->preferences;
         return $output;
     }
 
