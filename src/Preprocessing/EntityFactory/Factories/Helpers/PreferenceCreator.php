@@ -19,20 +19,25 @@ trait PreferenceCreator
         return $this->preferences;
     }
 
-    private function findProperties($properties)
+    private function findProperties($properties, $property_prefix = '')
     {
-        foreach ($properties as $property => $value) {
-            if (!isset($this->preferences[$property])) {
-                $this->preferences[$property]['weight'] = 0.5;
-                if (is_numeric($value)) {
-                    $this->preferences[$property]['direction'] = 1;
+        foreach ($properties as $propertyName => $value) {
+            if ($property_prefix){
+                $propertyName = $property_prefix . ':' . $propertyName;
+            }
 
-                } elseif (is_array($value)) {
-                    $this->findProperties($value);
-                }
+            if (!isset($this->preferences[$propertyName]) && !is_null($value)) {
+                if (is_array($value)) {
+                    $this->findProperties($value, $propertyName);
+                }else {
+                    $this->preferences[$propertyName]['weight'] = 0.5;
+                    if (is_numeric($value)) {
+                        $this->preferences[$propertyName]['direction'] = 1;
+                    }
 
-                if (is_string($value)) {
-                    $this->preferences[$property]['match'] = '';
+                    if (is_string($value)) {
+                        $this->preferences[$propertyName]['match'] = '';
+                    }
                 }
             }
         }

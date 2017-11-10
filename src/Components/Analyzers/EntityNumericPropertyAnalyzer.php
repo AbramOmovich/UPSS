@@ -53,9 +53,13 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
         }
     }
 
-    private function getPropertiesWeights($properties, $entityIndex, $nesting = 0)
+    private function getPropertiesWeights($properties, $entityIndex, $nesting = 0, $property_prefix = '')
     {
         foreach ($properties as $propertyName => $propertyValue){
+            if ($property_prefix){
+                $propertyName = $property_prefix . ':' . $propertyName;
+            }
+
             if (isset($this->preferences[$propertyName]) && !is_array($propertyValue)){
 
                 if (is_numeric($propertyValue) && isset($this->preferences[$propertyName]['direction'])){
@@ -78,7 +82,7 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
                 }
             }
             if (is_array($propertyValue) && !empty($propertyValue)){
-                $this->getPropertiesWeights($propertyValue, $entityIndex, $nesting + 1);
+                $this->getPropertiesWeights($propertyValue, $entityIndex, $nesting + 1, $propertyName);
             }
         }
     }
@@ -97,9 +101,13 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
         }
     }
 
-    private function getExtrema($properties)
+    private function getExtrema($properties, $property_prefix = '')
     {
         foreach ($properties as $propertyName => $propertyValue){
+            if ($property_prefix){
+                $propertyName = $property_prefix . ':' . $propertyName;
+            }
+
             //if it's user's preferred property
             if (isset($this->preferences[$propertyName]) && !is_array($propertyValue)){
 
@@ -120,7 +128,7 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
                 }
             //or it's array
             } elseif (is_array($propertyValue) && !empty($propertyValue)){
-                $this->getExtrema($propertyValue);
+                $this->getExtrema($propertyValue, $propertyName);
             }
         }
     }

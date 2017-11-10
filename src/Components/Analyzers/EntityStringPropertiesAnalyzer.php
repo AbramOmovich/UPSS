@@ -57,23 +57,27 @@ class EntityStringPropertiesAnalyzer implements IAnalyzer
         }
     }
 
-    private function analyzeProperties($properties, $entityIndex)
+    private function analyzeProperties($properties, $entityIndex, $property_prefix = '')
     {
-        foreach ($properties as $property => $propertyValue){
+        foreach ($properties as $propertyName => $propertyValue){
+            if ($property_prefix){
+                $propertyName = $property_prefix . ':' . $propertyName;
+            }
+
             if (is_array($propertyValue)){
-                $this->analyzeProperties($propertyValue, $entityIndex);
+                $this->analyzeProperties($propertyValue, $entityIndex, $propertyName);
 
                 //if property has matching preference
-            } elseif (isset($this->preferences[$property]['match'])
+            } elseif (isset($this->preferences[$propertyName]['match'])
                 && (is_string($propertyValue) || is_numeric($propertyValue)) ){
-                $match = $this->preferences[$property]['match'];
+                $match = $this->preferences[$propertyName]['match'];
 
                 //if full word matched weight is increased in 1
                 if (preg_match(str_replace('{match}', $match, self::FULL_MATCH_PATTERN), $propertyValue)){
-                    if (!isset($this->weights[$entityIndex][$property])){
-                        $this->weights[$entityIndex][$property] = 1;
+                    if (!isset($this->weights[$entityIndex][$propertyName])){
+                        $this->weights[$entityIndex][$propertyName] = 1;
                     } else {
-                        $this->weights[$entityIndex][$property]++;
+                        $this->weights[$entityIndex][$propertyName]++;
                     }
 
                 //if matched only word beginning
@@ -86,10 +90,10 @@ class EntityStringPropertiesAnalyzer implements IAnalyzer
                     //calculating weight depending on amount of letters matched
                     $weight = mb_strlen($match) / mb_strlen($word);
 
-                    if (!isset($this->weights[$entityIndex][$property])){
-                        $this->weights[$entityIndex][$property] = $weight;
+                    if (!isset($this->weights[$entityIndex][$propertyName])){
+                        $this->weights[$entityIndex][$propertyName] = $weight;
                     } else {
-                        $this->weights[$entityIndex][$property] += $weight;
+                        $this->weights[$entityIndex][$propertyName] += $weight;
                     }
                 }
             }
