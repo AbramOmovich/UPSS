@@ -1,6 +1,1 @@
-{"entities_id":"bc275d5c3d8fc437be96d5488ee5dc546f9b02ca",
-  "preferences":{
-    "Scale":{"weight":0.9,"direction":0,"match":""},
-    "Rate":{"weight":0.9,"direction":1,"match":""}
-  }
-}
+{"entities_id":"8a089fc802f3892c623b33f3c0b875f05fc9b752","preferences":{"firstName":{"weight":0.5,"match":""},"lastName":{"weight":0.5,"match":""},"middleName":{"weight":0.5,"match":""},"rank":{"weight":0.5,"match":""},"photoLink":{"weight":0.5,"match":""},"calendarId":{"weight":0.5,"match":""},"academicDepartment":{"weight":0.5},"0":{"weight":0.5,"match":""},"id":{"weight":0.5,"direction":1},"fio":{"weight":0.5,"match":""}}}

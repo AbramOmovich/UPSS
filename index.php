@@ -10,7 +10,7 @@ use UPSS\Storage\FileStorage;
 include 'vendor/autoload.php';
 include 'mock_params.php';
 
-$app = new Application('settings.php');
+$app = new Application(require_once 'settings.php');
 $app->initialize(new RequestHandler(), new ResponseHandler(), new ExceptionHandler());
 $app->process();
 

@@ -25,10 +25,12 @@ class CollectionValidator implements IEntityValidator, IPreferencesValidator
 
     private function isValidProperty($property) : bool
     {
-        if (is_array($property) && !empty($property)){
-            foreach ($property as $subProperty){
-                if (!$this->isValidProperty($subProperty)){
-                    return false;
+        if (is_array($property)){
+            if (!empty($property)){
+                foreach ($property as $subProperty){
+                    if (!$this->isValidProperty($subProperty)){
+                        return false;
+                    }
                 }
             }
         }

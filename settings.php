@@ -6,14 +6,14 @@ use UPSS\Components\Modifiers\EntityWeightRanker;
 use UPSS\Components\Modifiers\WeightSummator;
 use UPSS\Controller\MainController;
 use UPSS\Postprocessing\ResponseHandler;
-use UPSS\Preprocessing\TypeDetector\MockTypeDetector;
+use UPSS\Preprocessing\TypeDetector\RoughTypeDetector;
 use UPSS\Preprocessing\Validator\CollectionValidator;
 use UPSS\Storage\FileStorage;
 
 return [
     'exception_processor' => ResponseHandler::class,
     'validator' => CollectionValidator::class,
-    'type_detector' => MockTypeDetector::class,
+    'type_detector' => RoughTypeDetector::class,
     'storage' => [
         'class' => FileStorage::class,
         'folder' => __DIR__ . DIRECTORY_SEPARATOR . 'storage'

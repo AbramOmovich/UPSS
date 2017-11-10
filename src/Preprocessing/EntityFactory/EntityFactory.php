@@ -195,6 +195,7 @@ class EntityFactory
             $entity = $concreteFactory->createEntity();
             if ($this->validateEntity($entity, $index)) {
                 $entities [] = $entity;
+                $index++;
             }
         }
 

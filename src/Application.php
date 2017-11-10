@@ -26,9 +26,9 @@ class Application
        return self::$instance;
     }
 
-    public function __construct(string $settingsFile)
+    public function __construct(array $settings)
     {
-        $this->config = require_once $settingsFile;
+        $this->config = $settings;
         self::$instance = $this;
     }
 
