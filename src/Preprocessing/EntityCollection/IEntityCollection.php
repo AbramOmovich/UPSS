@@ -4,7 +4,7 @@ namespace UPSS\Preprocessing\EntityCollection;
 
 use UPSS\Preprocessing\Entities\IEntity;
 
-interface IEntityCollection extends ICollection
+interface IEntityCollection extends IPreferenceCollection
 {
     public function getEntities(): array;
 

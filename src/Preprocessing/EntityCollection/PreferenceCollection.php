@@ -4,34 +4,20 @@ namespace UPSS\Preprocessing\EntityCollection;
 
 use UPSS\Preprocessing\Entities\IEntity;
 
-class PreferenceCollection implements ICollection, IPreferenceCollection
+class PreferenceCollection implements IPreferenceCollection
 {
 
     private $entities_id = '';
     private $preferences = [];
-
-    public function getEntities(): array
-    {
-       return [];
-    }
 
     public function getPreferences(): array
     {
         return $this->preferences;
     }
 
-    public function addEntity(IEntity $entity) {}
-
     public function setPreferences(array $preferences)
     {
         $this->preferences = $preferences;
-    }
-
-    public function removeEntityFromCollection($index)
-    {
-        if (isset($this->preferences[$index])){
-            unset($this->preferences[$index]);
-        } else throw new \Exception("offset {$index} not exists");
     }
 
 

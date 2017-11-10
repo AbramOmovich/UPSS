@@ -31,4 +31,6 @@ return [
             EntityWeightRanker::class,
         ],
     ],
+    'per_page' => 10,
+
 ];

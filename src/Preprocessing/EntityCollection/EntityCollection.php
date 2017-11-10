@@ -2,10 +2,12 @@
 
 namespace UPSS\Preprocessing\EntityCollection;
 
+use UPSS\Application;
 use UPSS\Preprocessing\Entities\IEntity;
 
-class EntityCollection implements IEntityCollection, IPreferenceCollection
+class EntityCollection implements IEntityCollection
 {
+    private $page = 0;
     private $entities = [];
     private $preferences = [];
 
@@ -44,8 +46,22 @@ class EntityCollection implements IEntityCollection, IPreferenceCollection
         $output = [];
         $output['preferences'] = $this->preferences;
         $output['objects'] = [];
-        foreach ($this->entities as $entity) {
-            $output['objects'][] = $entity->getProperties();
+        $output['total'] = count($this->entities);
+        $output['per_page'] = Application::getInstance()->getConfig('per_page');
+
+        if (isset($this->preferences['page'])){
+            $this->preferences['page'] = $this->page;
+        }
+
+        if ($this->preferences['page'] >= 0){
+            $this->preferences['page'] = (int) $this->preferences['page'];
+
+            $start = $output['per_page'] * $this->preferences['page'];
+            $end = $output['per_page'] * ($this->preferences['page'] + 1);
+
+            for ($i = $start; ($i < $end) && ($i < $output['total']); $i++ ){
+                $output['objects'][] = $this->entities[$i]->getProperties();
+            }
         }
 
         return $output;
