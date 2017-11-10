@@ -29,7 +29,7 @@ $params = [];
 //another JSON
 
 $params = [
-    'data' => file_get_contents( 'https://students.bsuir.by/api/v1/auditory'),
+    'data' => file_get_contents( 'https://students.bsuir.by/api/v1/specialities'),
 ];
 
 

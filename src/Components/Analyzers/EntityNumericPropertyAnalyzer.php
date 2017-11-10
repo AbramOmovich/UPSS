@@ -56,8 +56,9 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
     private function getPropertiesWeights($properties, $entityIndex, $nesting = 0, $property_prefix = '')
     {
         foreach ($properties as $propertyName => $propertyValue){
+            $full_property_name = $propertyName;
             if ($property_prefix){
-                $propertyName = $property_prefix . ':' . $propertyName;
+                $full_property_name = $property_prefix . ':' . $propertyName;
             }
 
             if (isset($this->preferences[$propertyName]) && !is_array($propertyValue)){
@@ -65,20 +66,20 @@ class EntityNumericPropertyAnalyzer implements IAnalyzer
                 if (is_numeric($propertyValue) && isset($this->preferences[$propertyName]['direction'])){
 
                     $propertyWeight = 0;
-                    if ($this->preferences[$propertyName]['direction'] == 1) {
-                        $propertyWeight += $properties[$propertyName] / $this->extrema[$propertyName];
-                    } elseif ($this->preferences[$propertyName]['direction'] == 0) {
+                    if ($this->preferences[$full_property_name]['direction'] == 1) {
+                        $propertyWeight += $properties[$propertyName] / $this->extrema[$full_property_name];
+                    } elseif ($this->preferences[$full_property_name]['direction'] == 0) {
                         if ($properties[$propertyName] == 0 ){
                             $properties[$propertyName] = self::SMALLEST_WEIGHT;
                         }
-                        $propertyWeight += $this->extrema[$propertyName] / $properties[$propertyName];
+                        $propertyWeight += $this->extrema[$full_property_name] / $properties[$propertyName];
                     }
 
                     if($nesting){
                         $propertyWeight *= (self::NESTING_COEFFICIENT / $nesting);
                     }
 
-                    $this->weights[$entityIndex][$propertyName][$nesting] = $propertyWeight;
+                    $this->weights[$entityIndex][$full_property_name][$nesting] = $propertyWeight;
                 }
             }
             if (is_array($propertyValue) && !empty($propertyValue)){

@@ -1,3 +1,1 @@
-{"entities_id":"80204dc4223b228af9c3b20c540d33b9f1a835eb","preferences":{
-  "name":{"weight":0.5,"direction":1,"match":""}
-}}
+{"entities_id":"e0760066d27c762fe3c398abe6797e26ac1ffa62","preferences":{"id":{"weight":0.5,"direction":1},"name":{"weight":0.5,"match":""},"abbrev":{"weight":0.5,"match":""},"educationForm:id":{"weight":0.5,"direction":1},"educationForm:name":{"weight":0.5,"match":""},"facultyId":{"weight":0.5,"direction":1},"code":{"weight":0.5,"match":""}}}
