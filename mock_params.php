@@ -15,10 +15,10 @@ $params = [];
 ];*/
 
 //another XML data
-/*$params = [
+$params = [
     'data' => file_get_contents( 'http://www.nbrb.by/Services/XmlExRates.aspx'),
-    'format' => 'xml'
-];*/
+    //'format' => 'xml'
+];
 
 //JSON data
 /*$params = [
@@ -28,10 +28,10 @@ $params = [];
 
 //another JSON
 
-$params = [
+/*$params = [
     'data' => file_get_contents( 'https://students.bsuir.by/api/v1/employees'),
     //'format' => 'json'
-];
+];*/
 
 
 //Generated preferences

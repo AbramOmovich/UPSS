@@ -26,7 +26,7 @@ class RoughTypeDetector implements ITypeDetector
 
     private function json($data)
     {
-        return (json_decode($data) !== false);
+        return (!is_null(json_decode($data)));
     }
 
     private function xml($data)
