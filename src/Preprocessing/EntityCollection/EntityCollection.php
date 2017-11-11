@@ -63,7 +63,10 @@ class EntityCollection implements IEntityCollection
             }
         }
 
-        $output['preferences'] = $this->preferences;
+        foreach ($this->preferences as $key => $setting){
+            $output[$key] = $setting;
+        }
+
         return $output;
     }
 
