@@ -8,7 +8,6 @@ class CollectionValidator implements IEntityValidator, IPreferencesValidator
 {
     public function validateEntity(IEntity $entity): bool
     {
-        //TODO: remake validation
         $properties = $entity->getProperties();
         if (empty($properties)){
             return false;
