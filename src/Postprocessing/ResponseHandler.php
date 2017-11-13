@@ -23,7 +23,7 @@ class ResponseHandler implements IResponseHandler ,IExceptionProcessor
     public function __invoke(\Throwable $throwable)
     {
         $file = 'exception_log.txt';
-        file_put_contents($file, "//////////////////////////\n", FILE_APPEND);
+        file_put_contents($file, "/////////////////////////\n", FILE_APPEND);
         file_put_contents($file, $throwable . "\n", FILE_APPEND);
         $this->header(500);
         echo $throwable->getMessage();
