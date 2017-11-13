@@ -26,7 +26,7 @@ class ResponseHandler implements IResponseHandler ,IExceptionProcessor
         file_put_contents($file, "//////////////////////////\n", FILE_APPEND);
         file_put_contents($file, $throwable . "\n", FILE_APPEND);
         $this->header(500);
-        echo $throwable;
+        echo $throwable->getMessage();
     }
 
     public function send() : string
