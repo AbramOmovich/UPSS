@@ -10,8 +10,8 @@ class EntityStringPropertiesAnalyzer implements IAnalyzer
     private $entities;
     private $preferences;
 
-    private const FULL_MATCH_PATTERN = "@\b{match}\b@u";
-    private const BEGINNING_PATTERN = "@\b{match}[\w-]+\b@u";
+    private const FULL_MATCH_PATTERN = "@\b{match}\b@ui";
+    private const BEGINNING_PATTERN = "@\b{match}[\w-]+\b@ui";
 
 
     public function analyze(IEntityCollection $data) : array
