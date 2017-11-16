@@ -39,7 +39,11 @@ class RequestHandler implements IRequestHandler
 
         //or it's got data
         } elseif (isset($request['data']) && !empty($request['data'])) {
-            $handler->data = $request['data'];
+            $handler->data = unserialize($request['data']);
+            if (empty($handler->data)){
+                throw new \Exception(self::NO_DATA);
+            }
+
             if (isset($request['format'])) {
                 $handler->format = $request['format'];
             } else {
